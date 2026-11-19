@@ -1,39 +1,70 @@
 import { useState, useEffect } from "react";
+import {
+  BookOpen,
+  ClipboardList,
+  Compass,
+  Crown,
+  Flame,
+  Globe,
+  GraduationCap,
+  Laptop,
+  Medal,
+  Moon,
+  PenLine,
+  Radio,
+  Sun,
+  Trophy,
+} from "lucide-react";
+
+const MONO =
+  "ui-monospace, 'Cascadia Mono', Consolas, Menlo, Monaco, 'DejaVu Sans Mono', 'Courier New', monospace";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
 const tokens = [
+  "Agentic AI",
   "Python",
-  "React",
-  "AI/ML",
-  "Research",
-  "Node.js",
-  "LangChain",
-  "MongoDB",
+  "LangGraph",
+  "Claude Agent SDK",
   "RAG",
-  "Full-Stack",
+  "LangChain",
   "LLMs",
-  "REST API",
-  "IEEE",
+  "SLMs",
+  "ChromaDB",
   "Tamil NLP",
-  "IoT",
+  "Docker",
+  "React",
+  "Node.js",
+  "PostgreSQL",
+  "Linux",
   "Git",
-  "SQL",
 ];
 
 const typewriterPhrases = [
-  "Building Intelligent Software Solutions",
-  "Exploring AI, ML & Full-Stack Development",
-  "Turning Research into Real-World Impact",
-  "Passionate about Technology & Problem Solving",
+  "Building Agentic AI Workflows",
+  "Engineering LLM-Powered Systems & RAG Pipelines",
+  "NLP for Low-Resource Languages",
+  "Practical AI for Computationally Constrained Environments",
 ];
 
 const skills = {
-  Languages: ["Python", "Java", "JavaScript", "PHP", "Perl", "Matlab"],
-  "AI / NLP": ["LangChain", "ChromaDB", "RAG", "LLMs", "Unsloth"],
-  Web: ["React JS", "Node.js", "HTML5", "CSS", "Tailwind"],
-  Databases: ["MongoDB", "MariaDB", "PostgreSQL", "SQLite"],
-  "Tools & IDEs": ["Visual Studio Code", "Adobe Photoshop"],
+  Languages: ["Python", "Java", "JavaScript", "C++", "PHP", "MATLAB", "Perl"],
+  "AI & LLM Development": [
+    "LangChain",
+    "LangGraph",
+    "Claude Agent SDK",
+    "RAG",
+    "Agentic Workflows",
+  ],
+  Web: ["HTML5", "CSS", "React", "Node.js (Express)", "Tailwind CSS"],
+  Databases: [
+    "PostgreSQL",
+    "MariaDB",
+    "SQLite",
+    "MongoDB (NoSQL)",
+    "ChromaDB (Vector)",
+  ],
+  Tools: ["Git", "Linux", "Docker", "Visual Studio Code"],
   "Soft Skills": [
     "Teamwork",
     "Leadership",
@@ -49,7 +80,12 @@ const education = [
     program: "BSc Hons in Computer Science",
     institute: "University of Jaffna",
     period: "Nov 2022 - Present",
-    details: ["Fourth-year undergraduate", "Overall GPA: 3.82 (73/120 credits)"],
+    details: [
+      "Academic coursework completed",
+      "Completing internship & research work",
+      "Overall GPA: 3.8 (99/120 credits)",
+      "Dean's List — Year 1, Year 3",
+    ],
   },
   {
     program: "HEQ Professional Graduate Diploma in IT",
@@ -71,14 +107,38 @@ const education = [
     period: "Jan 2021 - May 2021",
     details: ["Information Systems, Networking, Software Development"],
   },
+  {
+    program: "G.C.E. Advanced Level Examination",
+    institute: "Hindu Ladies' College, Colombo",
+    period: "2020",
+    details: ["2B, C"],
+  },
+  {
+    program: "G.C.E. Ordinary Level Examination",
+    institute: "Hindu Ladies' College, Colombo",
+    period: "2016",
+    details: ["8A, B"],
+  },
 ];
 
 const workExperience = [
   {
+    role: "Software Engineering Intern (Agentic AI)",
+    org: "WSO2",
+    period: "May 2026 - Nov 2026",
+    desc: "Contributed to a region-agnostic agentic workflow for Open Banking compliance. Developed the Test Suite Agent, which generates tests from extracted requirements and automates their execution.",
+  },
+  {
+    role: "Founder",
+    org: "NeuroMath.io",
+    period: "Aug 2026 - Present",
+    desc: "Building an AI-powered, personalised mathematics learning platform with curriculum-aware backtracking. Winner of Best Innovative Product in EdTech (Provincial) at the SLASSCOM National Ingenuity Awards 2026.",
+  },
+  {
     role: "Smart Devices and IoT Practical Assistant (Part-Time)",
     org: "Department of Computer Science, University of Jaffna",
-    period: "Feb 2026 - Present",
-    desc: "Supports laboratory and practical sessions for the Smart Devices and IoT Certificate Course.",
+    period: "Feb 2026 - May 2026",
+    desc: "Supported laboratory and practical sessions for the Smart Devices and IoT Certificate Course.",
   },
   {
     role: "Online Math Tutor (Part-Time)",
@@ -95,7 +155,11 @@ const workExperience = [
 ];
 
 const certifications = [
-  "Fundamentals of Accelerated Data Science - NVIDIA (Dec 2025)",
+  "AI Gateway: Foundations - WSO2 (Nov 2026)",
+  "Agent Control & Management: Foundations - WSO2 (Oct 2026)",
+  "Associate AI Engineer for Developers - DataCamp (Aug 2026)",
+  "Claude 101 - Anthropic (Aug 2026)",
+  "Fundamentals of (GPU) Accelerated Data Science - NVIDIA (Dec 2025)",
   "Power BI Workshop Series - Data Bank Management Academy, USJ (Jul 2022)",
   "Python for Beginners - SkillUp (Simplilearn) (Jan 2022)",
   "Introduction to Python - DataCamp (Nov 2021)",
@@ -103,8 +167,11 @@ const certifications = [
 ];
 
 const hackathons = [
+  "Startup Pitching Competition - YGC Innovation Festival 2026",
+  "Cursor Buildathon 2026 - 3rd Place, FinTech Track",
+  "Codestorm AI - 1st Runner-up, YGC Innovation Festival 2025",
   "IEEEXtreme 19.0",
-  "<CodeStorm 2.0> - Yarl IT Hub",
+  "<CodeStorm 2.0> - YGC Innovation Festival 2024",
   "IEEEXtreme 18.0",
   "IEEEXtreme 17.0",
 ];
@@ -141,17 +208,17 @@ const profileLinks = [
 
 const publications = [
   {
-    title: "From Phonemes to Meaning: Evaluating LLMs on Tamil",
-    venue: "CHiPSAL @ LREC 2026",
-    status: "Submitted",
-    desc: "Introduces ILAKKANAM — a Tamil linguistic benchmark curated from Sri Lankan school exams, evaluating LLMs across phonetic, morphological, syntactic, and semantic levels.",
-    link: "https://arxiv.org/abs/2511.12387",
+    title: "Evaluating Linguistic Knowledge of LLMs in Tamil: The ILAKKANAM Benchmark",
+    venue: "CHiPSAL 2026 @ LREC 2026 · pp. 176–189",
+    status: "Published",
+    desc: "Introduces ILAKKANAM — a Tamil linguistic benchmark curated from Sri Lankan school exams, evaluating LLMs across phonetic, morphological, syntactic, and semantic levels. Presented at the CHiPSAL Workshop on May 16, 2026.",
+    link: "https://aclanthology.org/2026.chipsal-1.17/",
     tags: ["Tamil NLP", "Benchmarking", "LLMs"],
   },
   {
     title:
       "Perplexity-based Evaluation of Open-Source LLM Adaptation for Tamil",
-    venue: "SLSWCS 2025",
+    venue: "SL-SWCS 2025",
     status: "Oral Presentation",
     desc: "Studies adaptation of open-source LLMs for Tamil via Unsloth-based continued pretraining and evaluates performance using perplexity metrics.",
     tags: ["LLM Adaptation", "Tamil", "Perplexity"],
@@ -169,8 +236,8 @@ const publications = [
 const researchProjects = [
   {
     name: "Linguistically-Aware Small Language Model for Tamil",
-    type: "Research • Ongoing",
-    desc: "Final-year undergraduate research. Developing a linguistically-aware SLM aimed at improving NLP performance for the Tamil language.",
+    type: "Individual Research • Towards Completion",
+    desc: "Final-year undergraduate research building a linguistically-aware small language model for Tamil. Progress presented as a poster at the CHiPSAL Symposium (Jul 31, 2026).",
     tech: ["LLM", "Tamil NLP", "SLM"],
     color: "#00c9a7",
   },
@@ -178,45 +245,63 @@ const researchProjects = [
 
 const softwareProjects = [
   {
-    name: "Examination Claim System",
-    type: "Team Lead • Backend Developer",
-    desc: "Streamlined exam-claim payment workflows for lecturers involved in paper setting, moderation, marking, and conducting examinations.",
-    tech: ["HTML5", "CSS", "JavaScript", "MariaDB", "PHP"],
-    color: "#f06b4a",
+    name: "Open Banking Compliance Agentic Workflow — Test Suite Agent",
+    type: "WSO2 Internship Project",
+    desc: "Contributed to a region-agnostic agentic workflow for Open Banking compliance. Built the Test Suite Agent, which generates tests from extracted requirements and runs them automatically.",
+    tech: ["Python", "Claude Agent SDK", "LangGraph", "LangChain", "RAG", "ChromaDB", "Docker"],
+    color: "#00c9a7",
   },
   {
-    name: "Personalised AI Math Assistant",
-    type: "Individual • Ongoing",
-    desc: "RAG-based personalised AI assistant helping students prepare for math exams. Uses vector search over problem sets.",
-    tech: ["Python", "LangChain", "ChromaDB", "Flask", "PostgreSQL"],
-    color: "#e05c8a",
+    name: "NeuroMath.io — AI-powered Math Learning Platform",
+    type: "Founder • SLASSCOM Award",
+    desc: "Personalised mathematics learning with curriculum-aware backtracking that finds weak areas and strengthens them through the right lessons. The earlier version used RAG-based question generation with an LLM.",
+    tech: ["Python", "Open-source LLM", "RAG", "LangChain", "ChromaDB", "PostgreSQL"],
+    color: "#00c9a7",
+    link: "https://neuromath.io",
   },
   {
-    name: "Mathavam — Neuro-Developmental Disorders System",
-    type: "Team Lead • Full Stack",
-    desc: "Digitized medical assessments, appointment scheduling, QR attendance, and a RAG-powered knowledge chatbot.",
-    tech: ["React", "Node.js", "MongoDB", "RAG"],
-    color: "#8b6cf7",
+    name: "Mathavam — Neurodevelopmental Disorders Management System",
+    type: "Team Lead • Full-Stack Developer • Technical Writer",
+    desc: "Digitised paper-based medical assessments and patient records; implemented appointment scheduling, QR-based attendance tracking, and a RAG-powered chatbot.",
+    tech: ["React (Vite)", "Tailwind CSS", "Node.js (Express)", "MongoDB"],
+    color: "#00c9a7",
   },
   {
     name: "Agent-Based Centralised File Deletion System",
-    type: "Team Lead • Ongoing",
-    desc: "Master–client architecture over LAN with cross-platform support for automating file removal during practical exams.",
-    tech: ["Python", "LangChain", "SQLite", "Agents"],
-    color: "#d4a017",
+    type: "Team Lead • Backend Developer",
+    desc: "An agent-based (no LLM) centralised file deletion system for computer laboratories, using a master–client LAN architecture with Windows/Linux support.",
+    tech: ["Python", "SQLite", "HTML", "CSS", "JavaScript", "Docker"],
+    color: "#00c9a7",
+  },
+  {
+    name: "Examination Claim System",
+    type: "Team Lead • Backend Developer",
+    desc: "Streamlined the payment process for academics involved in setting, moderating, and marking exam papers, and conducting exams.",
+    tech: ["HTML5", "CSS", "JavaScript", "MariaDB", "PHP"],
+    color: "#00c9a7",
   },
   {
     name: "IoT-based Gate Control System",
-    type: "Developer",
+    type: "Team Lead • Developer",
     desc: "React Native app for secure vehicle entry with WSS-secured MQTT for real-time access control.",
     tech: ["React Native", "MQTT", "WSS", "IoT"],
-    color: "#2196c4",
+    color: "#00c9a7",
   },
 ];
 
 const awards = [
   {
-    title: "Best Team — Tamil Language Model",
+    title: "Best Innovative Product in EdTech (Provincial Category)",
+    event: "SLASSCOM National Ingenuity Awards 2026 — NeuroMath.io",
+    year: "Jun 2026",
+  },
+  {
+    title: "Third Place (Team) — FinTech Track",
+    event: "Cursor Buildathon 2026",
+    year: "May 2026",
+  },
+  {
+    title: "Best Team — Tamil LLM Category",
     event: "iCIIT Conclave 2025 (Shared Task 3.0)",
     year: "Aug 2025",
   },
@@ -245,15 +330,20 @@ const awards = [
     event: "Secured as IEEE WIE Chairperson",
     year: "2024",
   },
+  {
+    title: "Dean's List",
+    event: "University of Jaffna — Year 1, Year 3",
+    year: "Y1, Y3",
+  },
 ];
 
 const volunteering = [
   {
     role: "Contributor",
     org: "PyTorch Sri Lanka Community",
-    period: "Dec 2025 – Present",
+    period: "Dec 2025 – Jun 2026",
     desc: "Contributing to the local PyTorch open-source and knowledge-sharing community.",
-    icon: "🔥",
+    icon: Flame,
     category: "Technical",
   },
   {
@@ -261,15 +351,15 @@ const volunteering = [
     org: "IEEE Sri Lanka Section Editorial Committee",
     period: "Jul 2025 – Jan 2026",
     desc: "Produced editorial content for the IEEE Sri Lanka Section, covering events, research highlights, and member stories.",
-    icon: "✍️",
+    icon: PenLine,
     category: "IEEE",
   },
   {
     role: "University Ambassador",
     org: "SLASSCOM Women Technopreneurs Forum",
-    period: "Jun 2025 – Present",
+    period: "Jun 2025 – Jun 2026",
     desc: "Representing the University of Jaffna and promoting women in tech and entrepreneurship initiatives.",
-    icon: "🌐",
+    icon: Globe,
     category: "Leadership",
   },
   {
@@ -277,7 +367,7 @@ const volunteering = [
     org: "IEEE WIE Student Branch Affinity Group, University of Jaffna",
     period: "Jan 2024 – Feb 2025",
     desc: "Led the WIE affinity group, secured the IEEE R10 WIE DEI Grant 2024, and drove initiatives that earned multiple IEEE regional and global awards.",
-    icon: "👑",
+    icon: Crown,
     category: "IEEE",
     highlights: [
       "Platinum Darrel Chong Activity Award — IEEE SAC 2025",
@@ -290,7 +380,7 @@ const volunteering = [
     org: "Computer Society, University of Jaffna",
     period: "Jan 2024 – Feb 2025",
     desc: "Coordinated society activities, hackathons, and technical workshops for the student community.",
-    icon: "💻",
+    icon: Laptop,
     category: "Leadership",
   },
   {
@@ -298,7 +388,7 @@ const volunteering = [
     org: "IEEE Student Branch, University of Jaffna",
     period: "Jan 2023 – Jan 2024",
     desc: "Managed branch communications and led the editorial team for newsletters and event coverage.",
-    icon: "📋",
+    icon: ClipboardList,
     category: "IEEE",
   },
   {
@@ -306,7 +396,7 @@ const volunteering = [
     org: "IEEE Computer Society Sri Lanka Chapter — SAC 2023/24",
     period: "Jul 2023 – May 2024",
     desc: "Evaluated and coordinated recognition processes for student activities across the chapter.",
-    icon: "🏅",
+    icon: Medal,
     category: "IEEE",
   },
   {
@@ -314,7 +404,7 @@ const volunteering = [
     org: "IEEE Student Branch, University of Jaffna",
     period: "Aug – Dec 2023",
     desc: "Organised and promoted IEEE Day celebrations at branch level.",
-    icon: "📡",
+    icon: Radio,
     category: "IEEE",
   },
   {
@@ -322,7 +412,7 @@ const volunteering = [
     org: "IEEE Student Branch, University of Jaffna",
     period: "Oct 2023",
     desc: "Coordinated logistics and team management for the IEEEXtreme 17.0 programming competition.",
-    icon: "🏆",
+    icon: Trophy,
     category: "Technical",
   },
   {
@@ -330,7 +420,7 @@ const volunteering = [
     org: "C/Hindu Ladies' College",
     period: "2018 – 2019",
     desc: "Served in student leadership, maintaining discipline and organising school-level events.",
-    icon: "🎓",
+    icon: GraduationCap,
     category: "Leadership",
   },
   {
@@ -338,7 +428,7 @@ const volunteering = [
     org: "C/Hindu Ladies' College",
     period: "2013 – 2018",
     desc: "Five years of active guiding — developing teamwork, community service, and leadership skills.",
-    icon: "⚜️",
+    icon: Compass,
     category: "Leadership",
   },
   {
@@ -346,7 +436,7 @@ const volunteering = [
     org: "C/Hindu Ladies' College",
     period: "2010",
     desc: "Early school leadership responsibility supporting discipline and student coordination.",
-    icon: "📘",
+    icon: BookOpen,
     category: "Leadership",
   },
 ];
@@ -360,23 +450,23 @@ const dark = {
   bgNav: "rgba(8,12,16,0.88)",
   border: "rgba(255,255,255,0.08)",
   borderAccent: "rgba(0,204,160,0.22)",
-  text: "#bfc8c8",
+  text: "#d6dddd",
   textStrong: "#f0ece4",
-  textMuted: "rgba(180,195,195,0.5)",
+  textMuted: "rgba(200,212,212,0.82)",
   accent: "#00ffcc",
   accentDim: "rgba(0,255,204,0.1)",
   accentGlow: "rgba(0,255,204,0.04)",
-  accentLabel: "rgba(0,255,204,0.55)",
+  accentLabel: "rgba(0,255,204,0.8)",
   accentToken: "rgba(0,255,204,0.07)",
   gridLine: "rgba(0,255,204,0.03)",
   orb1: "rgba(0,255,204,0.05)",
   orb2: "rgba(167,139,250,0.06)",
   navBorder: "rgba(0,255,204,0.1)",
   sectionLine: "rgba(0,255,204,0.3)",
-  statLabel: "rgba(200,208,216,0.4)",
+  statLabel: "rgba(200,208,216,0.75)",
   tagBg: "rgba(0,255,204,0.05)",
   tagBorder: "rgba(0,255,204,0.18)",
-  tagText: "rgba(0,255,204,0.65)",
+  tagText: "rgba(0,255,204,0.85)",
   pubBorder: "rgba(0,255,204,0.12)",
   filterActiveBg: "rgba(0,255,204,0.12)",
 };
@@ -439,8 +529,8 @@ function TokenStream({ t }) {
         <span
           key={v.id}
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: "11px",
+            fontFamily: MONO,
+            fontSize: "13px",
             padding: "3px 8px",
             borderRadius: "4px",
             background:
@@ -488,50 +578,6 @@ function Typewriter({ phrases, t }) {
   );
 }
 
-function AttentionGrid({ t }) {
-  const [weights, setWeights] = useState(() =>
-    Array.from({ length: 6 }, () =>
-      Array.from({ length: 6 }, () => Math.random()),
-    ),
-  );
-  useEffect(() => {
-    const iv = setInterval(
-      () =>
-        setWeights(
-          Array.from({ length: 6 }, () =>
-            Array.from({ length: 6 }, () => Math.random()),
-          ),
-        ),
-      2000,
-    );
-    return () => clearInterval(iv);
-  }, []);
-  return (
-    <div
-      style={{
-        display: "inline-grid",
-        gridTemplateColumns: "repeat(6,1fr)",
-        gap: "3px",
-      }}
-    >
-      {weights.flat().map((w, i) => (
-        <div
-          key={i}
-          style={{
-            width: 18,
-            height: 18,
-            borderRadius: 2,
-            background: `${t.accent}${Math.round(w * 200)
-              .toString(16)
-              .padStart(2, "0")}`,
-            transition: "background 1.5s ease",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
 function Section({ id, title, children, t }) {
   return (
     <section id={id} style={{ marginBottom: "80px" }}>
@@ -545,9 +591,9 @@ function Section({ id, title, children, t }) {
       >
         <span
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: MONO,
             color: t.accent,
-            fontSize: "13px",
+            fontSize: "15px",
             opacity: 0.7,
           }}
         >
@@ -555,7 +601,7 @@ function Section({ id, title, children, t }) {
         </span>
         <h2
           style={{
-            fontFamily: "'Syne', sans-serif",
+            fontFamily: MONO,
             fontSize: "clamp(22px, 3vw, 30px)",
             color: t.textStrong,
             margin: 0,
@@ -627,8 +673,8 @@ function VolunteeringSection({ t }) {
               border: `1px solid ${filter === c ? t.accent : t.border}`,
               background: filter === c ? t.filterActiveBg : "transparent",
               color: filter === c ? t.accent : t.textMuted,
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: "11px",
+              fontFamily: MONO,
+              fontSize: "13px",
               cursor: "pointer",
               letterSpacing: "0.06em",
               transition: "all 0.2s",
@@ -639,8 +685,8 @@ function VolunteeringSection({ t }) {
         ))}
         <span
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: "11px",
+            fontFamily: MONO,
+            fontSize: "13px",
             color: t.textMuted,
             marginLeft: "4px",
             alignSelf: "center",
@@ -687,15 +733,13 @@ function VolunteeringSection({ t }) {
               <div
                 style={{ display: "flex", alignItems: "center", gap: "10px" }}
               >
-                <span style={{ fontSize: "20px", lineHeight: 1 }}>
-                  {v.icon}
-                </span>
+                <v.icon size={20} strokeWidth={1.75} color={t.accent} style={{ flexShrink: 0 }} />
                 <div>
                   <div
                     style={{
-                      fontFamily: "'Syne', sans-serif",
+                      fontFamily: MONO,
                       fontWeight: 700,
-                      fontSize: "14px",
+                      fontSize: "15px",
                       color: t.textStrong,
                       lineHeight: 1.2,
                     }}
@@ -704,7 +748,7 @@ function VolunteeringSection({ t }) {
                   </div>
                   <div
                     style={{
-                      fontSize: "12px",
+                      fontSize: "14px",
                       color: t.accent,
                       fontWeight: 500,
                       marginTop: "2px",
@@ -724,8 +768,8 @@ function VolunteeringSection({ t }) {
               >
                 <span
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: "10px",
+                    fontFamily: MONO,
+                    fontSize: "12px",
                     padding: "2px 8px",
                     borderRadius: "20px",
                     background: t.tagBg,
@@ -738,8 +782,8 @@ function VolunteeringSection({ t }) {
                 </span>
                 <span
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: "10px",
+                    fontFamily: MONO,
+                    fontSize: "12px",
                     color: t.textMuted,
                   }}
                 >
@@ -750,9 +794,10 @@ function VolunteeringSection({ t }) {
 
             <p
               style={{
-                fontSize: "13px",
+                fontSize: "15px",
                 color: t.text,
                 lineHeight: 1.7,
+                textAlign: "justify",
                 margin: v.highlights ? "0 0 10px" : "0",
                 paddingLeft: "30px",
               }}
@@ -781,7 +826,7 @@ function VolunteeringSection({ t }) {
                     <span
                       style={{
                         color: t.accent,
-                        fontSize: "10px",
+                        fontSize: "12px",
                         marginTop: "4px",
                         flexShrink: 0,
                       }}
@@ -790,7 +835,7 @@ function VolunteeringSection({ t }) {
                     </span>
                     <span
                       style={{
-                        fontSize: "12px",
+                        fontSize: "14px",
                         color: t.textMuted,
                         lineHeight: 1.5,
                       }}
@@ -810,6 +855,294 @@ function VolunteeringSection({ t }) {
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 
+/* ── Hero portrait ── */
+
+function HeroPortrait({ t }) {
+  return (
+    <img
+      src="/varsha.jpg"
+      alt="Varsha Jeyarajalingam"
+      style={{
+        display: "block",
+        width: "150px",
+        height: "170px",
+        objectFit: "cover",
+        objectPosition: "center 12%",
+        borderRadius: "14px",
+        border: `1.5px solid ${t.borderAccent}`,
+        boxShadow: `0 6px 24px ${t.accent}1a`,
+        background: "#fff",
+        flexShrink: 0,
+      }}
+    />
+  );
+}
+
+/* ── Side decorations: multi-agent system (left) + agent trace log (right) ── */
+
+function useWindowWidth() {
+  const [w, setW] = useState(() =>
+    typeof window === "undefined" ? 0 : window.innerWidth,
+  );
+  useEffect(() => {
+    const onResize = () => setW(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+  return w;
+}
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (!mq) return;
+    setReduced(mq.matches);
+    const onChange = (e) => setReduced(e.matches);
+    mq.addEventListener?.("change", onChange);
+    return () => mq.removeEventListener?.("change", onChange);
+  }, []);
+  return reduced;
+}
+
+const curve = (x1, y1, x2, y2) => {
+  const my = (y1 + y2) / 2;
+  return `M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`;
+};
+
+const SUB_AGENTS = [
+  { x: 42, label: "engineer", tools: ["Agentic AI", "Full-Stack"] },
+  { x: 130, label: "researcher", tools: ["Tamil SLM", "Benchmarks"] },
+  { x: 218, label: "founder", tools: ["NeuroMath.io", "EdTech"] },
+];
+
+function AgentNetwork({ t, reduced }) {
+  const ORCH = { x: 130, y: 52 };
+  const SUB_Y = 190;
+  const TOOL_Y = 250;
+  const TOOL_GAP = 52;
+  const node = {
+    fill: t.bg,
+    stroke: t.accent,
+    strokeWidth: 1.2,
+  };
+  const label = {
+    fontFamily: MONO,
+    fill: t.text,
+    fontSize: 11,
+    textAnchor: "middle",
+  };
+
+  return (
+    <svg
+      viewBox="0 0 260 400"
+      width="100%"
+      role="img"
+      aria-label="Varsha as an orchestrator agent with three sub-agents: engineer, researcher and founder"
+      style={{ overflow: "visible", display: "block" }}
+    >
+      {/* edges: orchestrator ↔ sub-agents */}
+      {SUB_AGENTS.map((s, i) => {
+        const down = curve(ORCH.x, ORCH.y + 18, s.x, SUB_Y - 14);
+        const up = curve(s.x, SUB_Y - 14, ORCH.x, ORCH.y + 18);
+        return (
+          <g key={s.label}>
+            <path d={down} fill="none" stroke={t.accent} strokeOpacity={0.3} strokeWidth={1} />
+            {!reduced && (
+              <>
+                {/* delegate (down): solid dot */}
+                <circle r={2.6} fill={t.accent}>
+                  <animateMotion dur="3.6s" begin={`${i * 1.2}s`} repeatCount="indefinite" path={down} />
+                </circle>
+                {/* report (up): ring */}
+                <circle r={3.2} fill="none" stroke={t.accent} strokeWidth={1.2}>
+                  <animateMotion dur="3.6s" begin={`${i * 1.2 + 1.8}s`} repeatCount="indefinite" path={up} />
+                </circle>
+              </>
+            )}
+          </g>
+        );
+      })}
+
+      {/* edges: sub-agents ↔ tools */}
+      {SUB_AGENTS.map((s, i) => {
+        // tools stacked vertically under each sub-agent, one column each
+        const ys = s.tools.map((_, j) => TOOL_Y + j * TOOL_GAP);
+        const last = ys[ys.length - 1];
+        const down = `M${s.x},${SUB_Y + 14} L${s.x},${last}`;
+        const up = `M${s.x},${last} L${s.x},${SUB_Y + 14}`;
+        return (
+          <g key={s.label}>
+            <path d={down} fill="none" stroke={t.accent} strokeOpacity={0.25} strokeWidth={1} strokeDasharray="3 3" />
+            {!reduced && (
+              <>
+                <circle r={2} fill={t.accent} fillOpacity={0.85}>
+                  <animateMotion dur="2.6s" begin={`${i * 0.8}s`} repeatCount="indefinite" path={down} />
+                </circle>
+                <circle r={2.4} fill="none" stroke={t.accent} strokeWidth={1}>
+                  <animateMotion dur="2.6s" begin={`${i * 0.8 + 1.3}s`} repeatCount="indefinite" path={up} />
+                </circle>
+              </>
+            )}
+            {s.tools.map((tool, j) => (
+              <g key={tool}>
+                <circle cx={s.x} cy={ys[j]} r={4.5} fill={t.bg} stroke={t.accent} strokeOpacity={0.7} />
+                <text x={s.x} y={ys[j] + 17} {...label} fontSize={10} fill={t.textMuted}>
+                  {tool}
+                </text>
+              </g>
+            ))}
+          </g>
+        );
+      })}
+
+      {/* orchestrator */}
+      <rect
+        x={ORCH.x - 72}
+        y={ORCH.y - 18}
+        width={144}
+        height={36}
+        rx={6}
+        {...node}
+        strokeWidth={1.6}
+      >
+        {!reduced && (
+          <animate attributeName="stroke-opacity" values="0.5;1;0.5" dur="2.4s" repeatCount="indefinite" />
+        )}
+      </rect>
+      <text x={ORCH.x} y={ORCH.y + 4} {...label} fill={t.accent} fontWeight={700}>
+        varsha
+      </text>
+      <text x={ORCH.x} y={ORCH.y - 28} {...label} fontSize={10} fill={t.textMuted}>
+        orchestrator · powered by curiosity
+      </text>
+
+      {/* sub-agents */}
+      {SUB_AGENTS.map((s) => (
+        <g key={s.label}>
+          <rect x={s.x - 38} y={SUB_Y - 14} width={76} height={28} rx={5} {...node} />
+          <text x={s.x} y={SUB_Y + 4} {...label}>
+            {s.label}
+          </text>
+        </g>
+      ))}
+
+      {/* status */}
+      <g>
+        <circle cx={18} cy={384} r={3.5} fill={t.accent}>
+          {!reduced && <animate attributeName="opacity" values="0.3;1;0.3" dur="1.6s" repeatCount="indefinite" />}
+        </circle>
+        <text x={30} y={388} {...label} textAnchor="start" fontSize={10} fill={t.textMuted}>
+          build · research · found — all running
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+const TRACE = [
+  ["varsha", "engineer", "automate Open Banking compliance testing"],
+  ["engineer", "tool:agents", "requirements → generated tests → auto-run"],
+  ["engineer", "varsha", "report: Test Suite Agent shipped @ WSO2"],
+  ["varsha", "researcher", "give Tamil its own small language model"],
+  ["researcher", "tool:slm", "linguistically-aware training"],
+  ["researcher", "varsha", "report: poster presented @ CHiPSAL 2026"],
+  ["researcher", "varsha", "report: Tamil data → Global PIQA benchmark"],
+  ["varsha", "founder", "make maths learning personal"],
+  ["founder", "NeuroMath.io","find weak areas → backtrack → strengthen"],
+  ["founder", "varsha", "report: SLASSCOM award · Best EdTech 2026"],
+  ["varsha", "world", "status: still learning, still shipping ✓"],
+];
+
+function AgentTrace({ t, reduced }) {
+  const MAX = 7;
+  const [step, setStep] = useState(reduced ? MAX : 1);
+  useEffect(() => {
+    if (reduced) return;
+    const iv = setInterval(() => setStep((s) => s + 1), 1800);
+    return () => clearInterval(iv);
+  }, [reduced]);
+
+  const lines = [];
+  for (let k = Math.max(0, step - MAX); k < step; k++) {
+    lines.push({ key: k, entry: TRACE[k % TRACE.length] });
+  }
+
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        border: `1px solid ${t.borderAccent}`,
+        borderRadius: 10,
+        background: t.bgNav,
+        padding: "14px 14px 12px",
+        fontFamily: MONO,
+        fontSize: 11.5,
+        lineHeight: 1.5,
+      }}
+    >
+      <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
+        {[0, 1, 2].map((i) => (
+          <span
+            key={i}
+            style={{ width: 8, height: 8, borderRadius: "50%", background: t.accent, opacity: 0.25 + i * 0.25 }}
+          />
+        ))}
+        <span style={{ marginLeft: 6, color: t.textMuted, fontSize: 11 }}>agent_trace.log</span>
+      </div>
+      <div style={{ minHeight: MAX * 42 }}>
+        {lines.map(({ key, entry: [from, to, msg] }) => {
+          const isReport = msg.startsWith("report") || msg.startsWith("status");
+          return (
+            <div key={key} style={{ marginBottom: 8, animation: "fadeIn 0.4s ease" }}>
+              <div style={{ color: t.accent }}>
+                {isReport ? "↑" : "↓"} {from} <span style={{ color: t.textMuted }}>→</span> {to}
+              </div>
+              <div style={{ color: isReport ? t.textStrong : t.textMuted, paddingLeft: 14 }}>{msg}</div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ color: t.accent }}>
+        ›<span style={{ animation: "blink 1s infinite" }}>▍</span>
+      </div>
+    </div>
+  );
+}
+
+function SideAgents({ t }) {
+  const width = useWindowWidth();
+  const reduced = usePrefersReducedMotion();
+  const side = (width - 900) / 2; // empty space on each side of <main>
+  if (side < 230) return null;
+  const panelW = Math.min(280, side - 40);
+  const common = {
+    position: "fixed",
+    top: "calc(50% + 30px)",
+    width: panelW,
+    zIndex: 0,
+    pointerEvents: "none",
+    transform: "translate(-50%, -50%)",
+    opacity: 0.9,
+  };
+  return (
+    <>
+      <div style={{ ...common, left: side / 2 }}>
+        <p style={{ fontFamily: MONO, fontSize: 12, color: t.accentLabel, margin: "0 0 14px" }}>
+          // varsha.agents
+        </p>
+        <AgentNetwork t={t} reduced={reduced} />
+      </div>
+      <div style={{ ...common, left: width - side / 2 }}>
+        <p style={{ fontFamily: MONO, fontSize: 12, color: t.accentLabel, margin: "0 0 14px" }}>
+          // what my agents are doing
+        </p>
+        <AgentTrace t={t} reduced={reduced} />
+      </div>
+    </>
+  );
+}
+
 export default function Portfolio() {
   const [isDark, setIsDark] = useState(true);
   const [activeNav, setActiveNav] = useState("home");
@@ -820,13 +1153,52 @@ export default function Portfolio() {
     "education",
     "experience",
     "research",
-    "projects",
-    "skills",
     "certifications",
     "hackathons",
+    "projects",
+    "skills",
     "awards",
     "volunteering",
   ];
+
+  // Scroll-spy: highlight the section currently under the navbar
+  useEffect(() => {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const offset = 140; // navbar (60px) + some breathing room
+      // pick the section whose top is closest above the offset line
+      let current = navItems[0];
+      let best = -Infinity;
+      for (const id of navItems) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top - offset;
+        if (top <= 0 && top > best) {
+          best = top;
+          current = id;
+        }
+      }
+      // at the very bottom, the last section may be too short to reach the top
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4;
+      if (atBottom) current = navItems[navItems.length - 1];
+      setActiveNav(current);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -839,12 +1211,11 @@ export default function Portfolio() {
         background: t.bg,
         minHeight: "100vh",
         color: t.text,
-        fontFamily: "'DM Sans', sans-serif",
+        fontFamily: MONO,
         transition: "background 0.35s, color 0.35s",
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
         @keyframes fadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
         @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
         @keyframes pulse { 0%,100% { opacity:0.35; } 50% { opacity:1; } }
@@ -894,6 +1265,8 @@ export default function Portfolio() {
         }}
       />
 
+      <SideAgents t={t} />
+
       {/* ── Navbar ── */}
       <nav
         style={{
@@ -917,9 +1290,9 @@ export default function Portfolio() {
         {/* Logo */}
         <div
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: MONO,
             color: t.accent,
-            fontSize: "14px",
+            fontSize: "15px",
             fontWeight: 500,
             flexShrink: 0,
           }}
@@ -946,8 +1319,8 @@ export default function Portfolio() {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "10px",
+                fontFamily: MONO,
+                fontSize: "12px",
                 color: activeNav === n ? t.accent : t.textMuted,
                 letterSpacing: "0.07em",
                 textTransform: "uppercase",
@@ -977,14 +1350,14 @@ export default function Portfolio() {
             alignItems: "center",
             gap: "6px",
             color: t.accent,
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: "11px",
+            fontFamily: MONO,
+            fontSize: "13px",
             letterSpacing: "0.04em",
             flexShrink: 0,
             transition: "all 0.25s",
           }}
         >
-          <span>{isDark ? "☀️" : "🌙"}</span>
+          {isDark ? <Sun size={14} /> : <Moon size={14} />}
           <span style={{ color: t.accentLabel }}>
             {isDark ? "light" : "dark"}
           </span>
@@ -1031,8 +1404,8 @@ export default function Portfolio() {
             />
             <span
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "12px",
+                fontFamily: MONO,
+                fontSize: "14px",
                 color: t.accentLabel,
                 letterSpacing: "0.1em",
               }}
@@ -1043,10 +1416,10 @@ export default function Portfolio() {
 
           <h1
             style={{
-              fontFamily: "'Syne', sans-serif",
+              fontFamily: MONO,
               fontSize: "clamp(42px, 7vw, 80px)",
               color: t.textStrong,
-              margin: "0 0 8px",
+              margin: "0 0 24px",
               lineHeight: 1.05,
               fontWeight: 800,
               letterSpacing: "-0.03em",
@@ -1080,8 +1453,8 @@ export default function Portfolio() {
                   border: `1px solid ${t.borderAccent}`,
                   background: t.bgCard,
                   color: t.textStrong,
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: "11px",
+                  fontFamily: MONO,
+                  fontSize: "13px",
                   letterSpacing: "0.02em",
                   textDecoration: "none",
                   transition: "all 0.2s",
@@ -1111,26 +1484,41 @@ export default function Portfolio() {
             <Typewriter phrases={typewriterPhrases} t={t} />
           </div>
 
-          <p
+          <div
             style={{
-              maxWidth: "560px",
-              lineHeight: 1.85,
-              color: t.textMuted,
-              fontSize: "15px",
+              display: "flex",
+              alignItems: "flex-start",
+              gap: "32px",
+              flexWrap: "wrap",
               marginBottom: "32px",
             }}
           >
-            Final-year Computer Science undergraduate with hands-on experience
-            in AI/ML, full-stack development, and research. I enjoy building
-            things that matter — from intelligent systems to production-grade
-            web applications. GPA 3.82 | Published Researcher | IEEE Leader.
+          <p
+            style={{
+              maxWidth: "560px",
+              flex: "1 1 320px",
+              lineHeight: 1.85,
+              textAlign: "justify",
+              color: t.textMuted,
+              fontSize: "16px",
+              margin: 0,
+            }}
+          >
+            Final-year Computer Science undergraduate who has completed a
+            Software Engineering (Agentic AI) internship at WSO2. I build agentic
+            AI workflows, LLM-powered applications, and RAG systems, and research
+            NLP for low-resource languages like Tamil. SLASSCOM National
+            Ingenuity Awards 2026 winner. Seeking a full-time AI Engineer or
+            Software Engineer (AI) role.
           </p>
+            <HeroPortrait t={t} />
+          </div>
 
           <div style={{ marginBottom: "32px" }}>
             <p
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "11px",
+                fontFamily: MONO,
+                fontSize: "13px",
                 color: t.accentLabel,
                 marginBottom: "8px",
                 letterSpacing: "0.08em",
@@ -1169,8 +1557,8 @@ export default function Portfolio() {
                   border: `1px solid ${t.borderAccent}`,
                   borderRadius: "6px",
                   color: t.accent,
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: "12px",
+                  fontFamily: MONO,
+                  fontSize: "14px",
                   cursor: "pointer",
                   letterSpacing: "0.05em",
                   transition: "all 0.2s",
@@ -1203,15 +1591,15 @@ export default function Portfolio() {
             }}
           >
             {[
-              { n: "3.82", label: "GPA" },
+              { n: "3.8", label: "GPA" },
               { n: "3", label: "Publications" },
-              { n: "5+", label: "Hackathons" },
+              { n: "7+", label: "Hackathons" },
               { n: "6", label: "IEEE Roles" },
             ].map((s) => (
               <div key={s.label}>
                 <div
                   style={{
-                    fontFamily: "'Syne', sans-serif",
+                    fontFamily: MONO,
                     fontSize: "28px",
                     fontWeight: 800,
                     color: t.accent,
@@ -1222,8 +1610,8 @@ export default function Portfolio() {
                 </div>
                 <div
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: "10px",
+                    fontFamily: MONO,
+                    fontSize: "12px",
                     color: t.statLabel,
                     letterSpacing: "0.1em",
                     marginTop: "4px",
@@ -1261,20 +1649,20 @@ export default function Portfolio() {
                   <div>
                     <div
                       style={{
-                        fontFamily: "'Syne', sans-serif",
+                        fontFamily: MONO,
                         fontWeight: 700,
-                        fontSize: "16px",
+                        fontSize: "17px",
                         color: t.textStrong,
                       }}
                     >
                       {e.program}
                     </div>
-                    <div style={{ fontSize: "13px", color: t.accent }}>{e.institute}</div>
+                    <div style={{ fontSize: "15px", color: t.accent }}>{e.institute}</div>
                   </div>
                   <div
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: "10px",
+                      fontFamily: MONO,
+                      fontSize: "12px",
                       color: t.textMuted,
                     }}
                   >
@@ -1286,8 +1674,8 @@ export default function Portfolio() {
                     <span
                       key={d}
                       style={{
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: "10px",
+                        fontFamily: MONO,
+                        fontSize: "12px",
                         padding: "2px 6px",
                         borderRadius: "4px",
                         background: t.tagBg,
@@ -1328,27 +1716,27 @@ export default function Portfolio() {
                   <div>
                     <div
                       style={{
-                        fontFamily: "'Syne', sans-serif",
+                        fontFamily: MONO,
                         fontWeight: 700,
-                        fontSize: "15px",
+                        fontSize: "16px",
                         color: t.textStrong,
                       }}
                     >
                       {w.role}
                     </div>
-                    <div style={{ fontSize: "13px", color: t.accent }}>{w.org}</div>
+                    <div style={{ fontSize: "15px", color: t.accent }}>{w.org}</div>
                   </div>
                   <div
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: "10px",
+                      fontFamily: MONO,
+                      fontSize: "12px",
                       color: t.textMuted,
                     }}
                   >
                     {w.period}
                   </div>
                 </div>
-                <p style={{ margin: "10px 0 0", fontSize: "13px", color: t.text, lineHeight: 1.7 }}>
+                <p style={{ margin: "10px 0 0", fontSize: "15px", color: t.text, lineHeight: 1.7, textAlign: "justify" }}>
                   {w.desc}
                 </p>
               </div>
@@ -1358,38 +1746,16 @@ export default function Portfolio() {
 
         {/* Research */}
         <Section id="research" title="Research & Publications" t={t}>
-          <div
+          <p
             style={{
-              marginBottom: "20px",
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
+              fontSize: "15px",
+              color: t.textMuted,
+              lineHeight: 1.6,
+              margin: "0 0 20px",
             }}
           >
-            <div>
-              <p
-                style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: "11px",
-                  color: t.accentLabel,
-                  marginBottom: "8px",
-                }}
-              >
-                // RESEARCH ACTIVITY (live)
-              </p>
-              <AttentionGrid t={t} />
-            </div>
-            <p
-              style={{
-                fontSize: "13px",
-                color: t.textMuted,
-                maxWidth: "280px",
-                lineHeight: 1.6,
-              }}
-            >
-              Research published, presented, and in progress.
-            </p>
-          </div>
+            Research published, presented, and in progress.
+          </p>
           <div
             style={{
               display: "flex",
@@ -1434,8 +1800,8 @@ export default function Portfolio() {
                 >
                   <span
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: "10px",
+                      fontFamily: MONO,
+                      fontSize: "12px",
                       padding: "2px 8px",
                       borderRadius: "3px",
                       letterSpacing: "0.06em",
@@ -1452,8 +1818,8 @@ export default function Portfolio() {
                   </span>
                   <span
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: "11px",
+                      fontFamily: MONO,
+                      fontSize: "13px",
                       color: t.textMuted,
                     }}
                   >
@@ -1462,9 +1828,9 @@ export default function Portfolio() {
                 </div>
                 <h3
                   style={{
-                    fontFamily: "'Syne', sans-serif",
+                    fontFamily: MONO,
                     fontWeight: 700,
-                    fontSize: "16px",
+                    fontSize: "17px",
                     color: t.textStrong,
                     margin: "0 0 8px",
                     lineHeight: 1.3,
@@ -1485,9 +1851,10 @@ export default function Portfolio() {
                 </h3>
                 <p
                   style={{
-                    fontSize: "14px",
+                    fontSize: "15px",
                     color: t.text,
                     lineHeight: 1.75,
+                    textAlign: "justify",
                     margin: "0 0 12px",
                   }}
                 >
@@ -1498,8 +1865,8 @@ export default function Portfolio() {
                     <span
                       key={tag}
                       style={{
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: "10px",
+                        fontFamily: MONO,
+                        fontSize: "12px",
                         padding: "2px 6px",
                         borderRadius: "3px",
                         background: t.tagBg,
@@ -1518,8 +1885,8 @@ export default function Portfolio() {
           <div style={{ marginTop: "34px" }}>
             <p
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "11px",
+                fontFamily: MONO,
+                fontSize: "13px",
                 color: t.accentLabel,
                 marginBottom: "12px",
                 letterSpacing: "0.08em",
@@ -1562,8 +1929,8 @@ export default function Portfolio() {
                 >
                   <div
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: "10px",
+                      fontFamily: MONO,
+                      fontSize: "12px",
                       color: t.textMuted,
                       marginBottom: "8px",
                       letterSpacing: "0.06em",
@@ -1573,9 +1940,9 @@ export default function Portfolio() {
                   </div>
                   <h3
                     style={{
-                      fontFamily: "'Syne', sans-serif",
+                      fontFamily: MONO,
                       fontWeight: 700,
-                      fontSize: "15px",
+                      fontSize: "16px",
                       color: t.textStrong,
                       margin: "0 0 10px",
                       lineHeight: 1.3,
@@ -1585,9 +1952,10 @@ export default function Portfolio() {
                   </h3>
                   <p
                     style={{
-                      fontSize: "13px",
+                      fontSize: "15px",
                       color: t.text,
                       lineHeight: 1.65,
+                      textAlign: "justify",
                       margin: "0 0 14px",
                     }}
                   >
@@ -1598,8 +1966,8 @@ export default function Portfolio() {
                       <span
                         key={tech}
                         style={{
-                          fontFamily: "'JetBrains Mono', monospace",
-                          fontSize: "10px",
+                          fontFamily: MONO,
+                          fontSize: "12px",
                           padding: "2px 6px",
                           borderRadius: "3px",
                           background: `${p.color}18`,
@@ -1628,7 +1996,7 @@ export default function Portfolio() {
                   background: t.bgCard,
                   border: `1px solid ${t.border}`,
                   borderRadius: "8px",
-                  fontSize: "13px",
+                  fontSize: "15px",
                   color: t.text,
                   lineHeight: 1.6,
                 }}
@@ -1646,8 +2014,8 @@ export default function Portfolio() {
               <span
                 key={h}
                 style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: "11px",
+                  fontFamily: MONO,
+                  fontSize: "13px",
                   padding: "6px 12px",
                   borderRadius: "20px",
                   background: t.tagBg,
@@ -1698,8 +2066,8 @@ export default function Portfolio() {
               >
                 <div
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: "10px",
+                    fontFamily: MONO,
+                    fontSize: "12px",
                     color: t.textMuted,
                     marginBottom: "8px",
                     letterSpacing: "0.06em",
@@ -1709,21 +2077,33 @@ export default function Portfolio() {
                 </div>
                 <h3
                   style={{
-                    fontFamily: "'Syne', sans-serif",
+                    fontFamily: MONO,
                     fontWeight: 700,
-                    fontSize: "15px",
+                    fontSize: "16px",
                     color: t.textStrong,
                     margin: "0 0 10px",
                     lineHeight: 1.3,
                   }}
                 >
-                  {p.name}
+                  {p.link ? (
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: t.textStrong }}
+                    >
+                      {p.name} ↗
+                    </a>
+                  ) : (
+                    p.name
+                  )}
                 </h3>
                 <p
                   style={{
-                    fontSize: "13px",
+                    fontSize: "15px",
                     color: t.text,
                     lineHeight: 1.65,
+                    textAlign: "justify",
                     margin: "0 0 14px",
                   }}
                 >
@@ -1734,8 +2114,8 @@ export default function Portfolio() {
                     <span
                       key={tech}
                       style={{
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: "10px",
+                        fontFamily: MONO,
+                        fontSize: "12px",
                         padding: "2px 6px",
                         borderRadius: "3px",
                         background: `${p.color}18`,
@@ -1774,8 +2154,8 @@ export default function Portfolio() {
               >
                 <div
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: "10px",
+                    fontFamily: MONO,
+                    fontSize: "12px",
                     color: t.accent,
                     letterSpacing: "0.1em",
                     marginBottom: "14px",
@@ -1810,7 +2190,7 @@ export default function Portfolio() {
                           flexShrink: 0,
                         }}
                       />
-                      <span style={{ fontSize: "13px", color: t.text }}>
+                      <span style={{ fontSize: "15px", color: t.text }}>
                         {item}
                       </span>
                     </div>
@@ -1830,8 +2210,8 @@ export default function Portfolio() {
           >
             <div
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "10px",
+                fontFamily: MONO,
+                fontSize: "12px",
                 color: t.accent,
                 letterSpacing: "0.1em",
                 marginBottom: "14px",
@@ -1848,7 +2228,7 @@ export default function Portfolio() {
                 <div key={lang}>
                   <span
                     style={{
-                      fontSize: "14px",
+                      fontSize: "15px",
                       color: t.textStrong,
                       fontWeight: 500,
                     }}
@@ -1857,8 +2237,8 @@ export default function Portfolio() {
                   </span>
                   <span
                     style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: "10px",
+                      fontFamily: MONO,
+                      fontSize: "12px",
                       color: t.accentLabel,
                       marginLeft: "8px",
                     }}
@@ -1902,8 +2282,8 @@ export default function Portfolio() {
               >
                 <span
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: "11px",
+                    fontFamily: MONO,
+                    fontSize: "13px",
                     color: t.accentLabel,
                     flexShrink: 0,
                     marginTop: "2px",
@@ -1914,16 +2294,16 @@ export default function Portfolio() {
                 <div>
                   <div
                     style={{
-                      fontFamily: "'Syne', sans-serif",
+                      fontFamily: MONO,
                       fontWeight: 700,
-                      fontSize: "14px",
+                      fontSize: "15px",
                       color: t.textStrong,
                       marginBottom: "3px",
                     }}
                   >
                     {a.title}
                   </div>
-                  <div style={{ fontSize: "12px", color: t.textMuted }}>
+                  <div style={{ fontSize: "14px", color: t.textMuted }}>
                     {a.event}
                   </div>
                 </div>
@@ -1946,8 +2326,8 @@ export default function Portfolio() {
           textAlign: "center",
           padding: "24px",
           borderTop: `1px solid ${t.navBorder}`,
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: "11px",
+          fontFamily: MONO,
+          fontSize: "13px",
           color: t.textMuted,
           letterSpacing: "0.06em",
           transition: "border-color 0.35s",
